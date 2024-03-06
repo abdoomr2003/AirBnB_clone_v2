@@ -16,12 +16,12 @@ def do_deploy(archive_path):
         put(archive_path, "/tmp/")
         folder = "/data/web_static/releases/" + archive_path.split('/')[1][:-4]
         run("mkdir -p {}".format(folder))
-        run("tar -xzf /tmp/{} -C {}/".format(archive_path.split('/')[1], folder))
+        run(f"tar -xzf /tmp/{archive_path.split('/')[1]} -C {folder}/")
         run("rm /tmp/{}".format(archive_path.split('/')[1]))
         run("mv {}/web_static/* {}/".format(folder, folder))
         run("rm -rf {}/web_static".format(folder))
         run("rm -rf /data/web_static/current")
         run("ln -s {} /data/web_static/current".format(folder))
         return True
-    except:
+    except Exception:
         return False
