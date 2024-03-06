@@ -1,34 +1,21 @@
 #!/usr/bin/python3
-"""_script that starts a _Flask web application"""
+"""script that starts a Flask web application"""
 
-
-# import Flask class _from flask _module
 from flask import Flask
-
-# create an instance called app of the _class by passong the __name__ variable
-app = Flask(__name__)
-app.url_map.strict_slashes = False
+flask_app = Flask(__name__)
 
 
-@app.route('/')
-def index():
-    """display "Hello HBNB!"
-
-    Returns:
-        str: text on the index page
-    """
-    return 'Hello HBNB!'
+@flask_app.route("/", strict_slashes=False)
+def homePage():
+    """Hello HBNB"""
+    return "Hello HBNB!"
 
 
-@app.route('/hbnb')
-def hbnb_route():
-    """display "HBNB"
-
-    Returns:
-        str: text on the page
-    """
-    return 'HBNB'
+@flask_app.route("/hbnb", strict_slashes=False)
+def homePage2():
+    """HBNB"""
+    return "HBNB"
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    flask_app.run(host='0.0.0.0', port=5000)

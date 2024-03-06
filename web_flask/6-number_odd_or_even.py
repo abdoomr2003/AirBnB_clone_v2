@@ -1,108 +1,55 @@
 #!/usr/bin/python3
-"""script that starts a _Flask web _application"""
+"""script that starts a Flask web application"""
 
-
-# import Flask class from _flask module
-# import render_template for rendering templates to _browser
 from flask import Flask, render_template
-
-# create an instance called app of the class by passong the __name__ variable
-app = Flask(__name__)
-app.url_map.strict_slashes = False
+flask_app = Flask(__name__)
 
 
-@app.route('/')
-def index():
-    """display "Hello HBNB!"
-
-    Returns:
-        str: text on the index page
-    """
-    return 'Hello HBNB!'
+@flask_app.route("/", strict_slashes=False)
+def homePage():
+    """Hello HBNB"""
+    return "Hello HBNB!"
 
 
-@app.route('/hbnb')
-def hbnb_route():
-    """display "HBNB"
-
-    Returns:
-        str: text on the page
-    """
-    return 'HBNB'
+@flask_app.route("/hbnb", strict_slashes=False)
+def homePage2():
+    """HBNB"""
+    return "HBNB"
 
 
-@app.route('/c/<text>')
-def c_route(text):
-    """display "C", followed by the va_lue of the te_xt var_iable
-
-    Args:
-        text (str): text to be serv_ed on the pa_ge
-
-    Returns:
-        str: text on the pa_ge
-    """
-    return 'C {}'.format(text.replace('_', ' '))
+@flask_app.route("/c/<text>", strict_slashes=False)
+def Text(text):
+    """c"""
+    spaces_word = text.replace('_', ' ')
+    return f"C {spaces_word}"
 
 
-@app.route('/python', defaults={'text': 'is cool'})
-@app.route('/python/<text>')
-def python_route(text):
-    """display "Python", followed by the value of the text variable
-
-    Args:
-        text (str): text to be served on the page
-
-    Returns:
-        str: text on the pa-ge
-    """
-    return 'Python {}'.format(text.replace('_', ' '))
+@flask_app.route("/python/", defaults={'text': 'is cool'},
+                 strict_slashes=False)
+@flask_app.route("/python/<text>", strict_slashes=False)
+def Text2(text):
+    """py"""
+    spaces_word = text.replace('_', ' ')
+    return f"Python {spaces_word}"
 
 
-@app.route('/number/<int:n>')
-def number_route(n):
-    """display "n is a number" only if n is an integer
-
-    Args:
-        n (integer): number to be displayed on pa-ge
-
-    Returns:
-        str: text on the page
-    """
-    return '{} is a number'.format(n)
+@flask_app.route("/number/<int:n>", strict_slashes=False)
+def num(n):
+    """num"""
+    return f"{n} is a number"
 
 
-@app.route('/number_template/<int:n>')
-def number_template_route(n):
-    """display a HTML page only if n is an integer
-
-    H1 tag: "Number: n" inside the tag BODY
-
-    Args:
-        n (integer): number to be displayed on page
-
-    Returns:
-        str: text on the page
-    """
-    return render_template('5-number.html', num=n)
+@flask_app.route("/number_template/<int:n>", strict_slashes=False)
+def num_template(n):
+    """html"""
+    return render_template('5-number.html', n=n)
 
 
-@app.route('/number_odd_or_even/<int:n>')
-def number_odd_or_even_route(n):
-    """display a HTML page only if n is an integer
-
-    Args:
-        n (integer): number to be displayed on page
-
-    Returns:
-        str: text on the page
-    """
-    if n % 2 == 0:
-        condition = 'even'
-    else:
-        condition = 'odd'
-    return render_template('6-number_odd_or_even.html', n=n,
-                           condition=condition)
+@flask_app.route("/number_odd_or_even/<int:n>", strict_slashes=False)
+def num_odd(n):
+    """html"""
+    return render_template('6-number_odd_or_even.html', n=n)
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    flask_app.run(host='0.0.0.0', port=5000)

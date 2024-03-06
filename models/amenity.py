@@ -1,22 +1,14 @@
 #!/usr/bin/python3
-""" State Module for HBNB project """
+""" State Module"""
 from models.base_model import BaseModel, Base
-# SQLAlchemy modules
-from sqlalchemy import Column, String, ForeignKey, Integer, Float
+from models import storage_type
+from sqlalchemy import Column, String
 
 
 class Amenity(BaseModel, Base):
-    """Defines a class Amenity
-
-    Attributes:
-        __tablename__ (str): amenities
-
-        name (str): name of amenity.
-    """
-
+    '''amenity'''
     __tablename__ = 'amenities'
-    name = Column(String(128), nullable=False)
-
-    def __init__(self, *args, **kwargs):
-        """initializes state"""
-        super().__init__(*args, **kwargs)
+    if storage_type == 'db':
+        name = Column(String(128), nullable=False)
+    else:
+        name = ""

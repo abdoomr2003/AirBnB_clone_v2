@@ -1,61 +1,37 @@
 #!/usr/bin/python3
-"""script that starts a _Flask web _application"""
+"""script that starts a Flask web application"""
 
-
-# import Flask class from flask module
 from flask import Flask
-
-# create an instance called app of the class by passong the __name__ variable
-app = Flask(__name__)
-app.url_map.strict_slashes = False
+flask_app = Flask(__name__)
 
 
-@app.route('/')
-def index():
-    """display "Hello HBNB!"
-
-    Returns:
-        str: text on the index page
-    """
-    return 'Hello HBNB!'
+@flask_app.route("/", strict_slashes=False)
+def homePage():
+    """Hello HBNB"""
+    return "Hello HBNB!"
 
 
-@app.route('/hbnb')
-def hbnb_route():
-    """display "HBNB"
-
-    Returns:
-        str: text on the page
-    """
-    return 'HBNB'
+@flask_app.route("/hbnb", strict_slashes=False)
+def homePage2():
+    """HBNB"""
+    return "HBNB"
 
 
-@app.route('/c/<text>')
-def c_route(text):
-    """display "C", f-ollowed by the value of the _text var_iable
-
-    Args:
-        text (str): text to be served on the page
-
-    Returns:
-        str: text on the page
-    """
-    return 'C {}'.format(text.replace('_', ' '))
+@flask_app.route("/c/<text>", strict_slashes=False)
+def Text(text):
+    """HBNB"""
+    spaces_word = text.replace('_', ' ')
+    return f"C {spaces_word}"
 
 
-@app.route('/python', defaults={'text': 'is cool'})
-@app.route('/python/<text>')
-def python_route(text):
-    """display "Python", followed by the value of the text variable
-
-    Args:
-        text (str): text to be served on the page
-
-    Returns:
-        str: text on the page
-    """
-    return 'Python {}'.format(text.replace('_', ' '))
+@flask_app.route("/python/", defaults={'text': 'is cool'},
+                 strict_slashes=False)
+@flask_app.route("/python/<text>", strict_slashes=False)
+def Text2(text):
+    """HBNB"""
+    spaces_word = text.replace('_', ' ')
+    return f"Python {spaces_word}"
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    flask_app.run(host='0.0.0.0', port=5000)

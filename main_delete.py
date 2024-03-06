@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Test de_lete fea_ture
+""" Test delete feature
 """
 from models.engine.file_storage import FileStorage
 from models.state import State
@@ -36,7 +36,7 @@ print("Another State: {}".format(another_state))
 all_states = fs.all(State)
 print("All States: {}".format(len(all_states.keys())))
 for state_key in all_states.keys():
-    print(all_states[state_key])
+    print(all_states[state_key])        
 
 # Delete the new State
 fs.delete(new_state)
